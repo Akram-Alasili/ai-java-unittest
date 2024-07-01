@@ -1,0 +1,79 @@
+{
+  "standards": [
+     {
+        "id": "namingConventions",
+        "description": "Test method names should follow the pattern: 'shouldDoSomethingWhenCondition'. Names should describe the behavior being tested.",
+        "example": "public void shouldThrowNullPointerExceptionWhenNullParameter()"
+     },
+     {
+        "id": "fileNameConvention",
+        "description": "Unit test files should be named after the class they test with 'Test' appended at the end.",
+        "example": "public class ClassNameTest { ... }"
+     },
+     {
+        "id": "arrangeActAssert",
+        "description": "Follow the Arrange-Act-Assert (AAA) pattern for structuring tests.",
+        "example": "// Arrange\nint a = 5;\nint b = 3;\n// Act\nint result = calculator.add(a, b);\n// Assert\nassertEquals(\"Expected sum to be 8\", 8, result);"
+     },
+     {
+        "id": "oneAssertionPerTest",
+        "description": "Tests should generally have only one reason to fail, meaning only one assertion per test.",
+        "example": "public void shouldAddTwoNumbersCorrectly() {\n  // Arrange\n  int a = 2;\n  int b = 3;\n  // Act\n  int result = calculator.add(a, b);\n  // Assert\n  assertEquals(\"Expected sum to be 5\", 5, result);\n}"
+     },
+     {
+        "id": "testDataIsolation",
+        "description": "Ensure tests are isolated and can be run independently in any order by setting up and tearing down test data properly.",
+        "example": "@Before public void setUp() { ... }\n@After public void tearDown() { ... }"
+     },
+     {
+        "id": "mockExternalServices",
+        "description": "If the method under test has dependencies, use mocking frameworks to create mock objects.",
+        "example": "public void shouldReturnExpectedValueFromService() {\n  Service mockService = mock(Service.class);\n  when(mockService.getData()).thenReturn(expectedData);\n  // Test method using mockService\n}"
+     },
+     {
+        "id": "exceptionHandling",
+        "description": "Tests for methods that throw exceptions must assert the expected exception type and message.",
+        "example": "@Test(expected = IllegalArgumentException.class) public void shouldThrowExceptionForInvalidInput() { ... }"
+     },
+     {
+        "id": "documentation",
+        "description": "Each test class and method should have Javadoc comments explaining the purpose and logic of the test.",
+        "example": "/** Tests the add method for a null parameter scenario. */ public void shouldThrowNullPointerExceptionWhenNullParameter() { ... }"
+     },
+     {
+        "id": "assertions",
+        "description": "Use meaningful assertion messages to clarify the intent of the test.",
+        "example": "assertEquals(\"Expected sum to be 5\", 5, result)"
+     },
+     {
+        "id": "edgeCaseCoverage",
+        "description": "Test edge cases such as empty arrays, single-element arrays, and boundary conditions.",
+        "example": "public void shouldHandleEmptyArray() { ... }\npublic void shouldHandleSingleElementArray() { ... }"
+     },
+     {
+        "id": "loopConditionCoverage",
+        "description": "Ensure that loops are tested for zero iterations, one iteration, and multiple iterations.",
+        "example": "public void shouldHandleZeroIterations() { ... }\npublic void shouldHandleSingleIteration() { ... }\npublic void shouldHandleMultipleIterations() { ... }"
+     },
+     {
+        "id": "coverage",
+        "description": "Ensure that every executable statement, function, branch, and path in the code is covered by at least one test case. Use a code coverage tool to measure the percentage of your code that is covered by tests, and aim for a high coverage percentage.",
+        "example": "// Given a function with multiple paths (e.g., if-else conditions, loops)\n// There should be unit tests that cover each path."
+     },
+     {
+        "id": "mainMethodCoverage",
+        "description": "Ensure that the logic in the main method is fully covered by tests. This includes testing the method under different conditions and with different arguments.",
+        "example": "// Given a main method in a class\n// There should be corresponding unit tests covering all possible cases for this method."
+     },
+     {
+        "id": "exceptionCoverage",
+        "description": "Ensure that all methods which can throw exceptions are tested under conditions that should result in exceptions being thrown.",
+        "example": "public void shouldThrowExceptionForInvalidInput() { ... }\npublic void shouldHandleExceptionScenario() { ... }"
+     },
+     {
+        "id": "testsShouldBeFast",
+        "description": "Tests should be designed to run quickly. Slow tests can become a bottleneck in the development process.",
+        "example": "// Ensure that test data setup is minimal and efficient to allow fast test execution."
+     }
+  ]
+}

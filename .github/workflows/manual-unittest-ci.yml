@@ -1,0 +1,57 @@
+name: Manual Unit Tests CI
+# Trigger on push or pull request to the main branch,
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'manual-unittest/**'
+      - '.github/workflows/manual-unittest-ci.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'manual-unittest/**'
+      - '.github/workflows/manual-unittest-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up JDK 8
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+
+      # Step 3: Cache Maven packages to speed up build
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('manual-unittest/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 4: Install dependencies without running tests
+      - name: Install dependencies
+        run: mvn -B install -DskipTests --file manual-unittest/pom.xml
+
+      # Step 5: Run tests and generate the JaCoCo coverage report  
+      - name: Run tests and generate coverage report
+        run: mvn test jacoco:report --file manual-unittest/pom.xml
+
+      # Step 6: Upload the JaCoCo coverage report as an artifact
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: manual-jacoco-report
+          path: manual-unittest/target/site/jacoco
+          if-no-files-found: warn
